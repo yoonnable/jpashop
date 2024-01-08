@@ -1,0 +1,17 @@
+spring:
+#  datasource:
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver #데이터베이스 커넥션 관련 데이터 소스 설정을 다 알아서 완료 해준다.
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+##        show_sql: true # System.out.print로 찍힘
+#        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug # JPA 하이버네이트가 남기는 모든 것들(sql)이 log로 디버그 모드로 모두 출력됨
+    org.hibernate.type: trace # 이거 안됨... 해결 해야함...
