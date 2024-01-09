@@ -21,6 +21,18 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
-    // TODO: 주문 리스트 검색
-//    public List<Order> findAll(OrderSearch orderSearch) {}
+    public List<Order> findAll(OrderSearch orderSearch) {
+
+        return em.createQuery("select 0 from Order o join o.member m" +
+                // 아래 where 절은 무조건 조건 값이 있을 때만 동작함,,
+                        " where o.status = :status " +
+                        " and m.name like :name", Order.class)
+                .setParameter("status", orderSearch.getOrderStatus())
+                .setParameter("name", orderSearch.getMemberName())
+//                .setFirstResult() //페이징 할 때 사용
+                .setMaxResults(1000) // 최대 1000개까지 조회
+                .getResultList();
+    }
+
+
 }
