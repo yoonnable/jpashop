@@ -2,11 +2,14 @@ package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //    protected OrderItem() {} 와 같은 코드
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -24,6 +27,8 @@ public class OrderItem {
     private int orderPrice; // 주문 가격
     private int count; // 주문 수량
 
+//    protected OrderItem() {} // 아무데서나 new 생성자 못하게 막기
+
     //==생성 메서드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
@@ -32,7 +37,7 @@ public class OrderItem {
         orderItem.setCount(count);
 
         item.removeStock(count); // 재고를 주문 수량만큼 감소시킨다.
-        return orderItem
+        return orderItem;
     }
 
     //==비즈니스 로직==//

@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -21,10 +24,10 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // persist(order)만 하면 orderItem도 자동으로 됨
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // persist(order)만 하면 orderItem도 자동으로 persist 됨
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // persist(order)만 하면 delivery도 자동으로 됨
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // persist(order)만 하면 delivery도 자동으로 persist 됨
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
