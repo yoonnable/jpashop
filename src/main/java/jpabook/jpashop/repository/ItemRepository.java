@@ -13,11 +13,12 @@ public class ItemRepository {
 
     private final EntityManager em;
 
+    // 병합(merge) 사용 에시
     public void save(Item item) {
         if(item.getId() == null) {
             em.persist(item);
         } else {
-            em.merge(item);
+            em.merge(item); // 병합
         }
     }
 

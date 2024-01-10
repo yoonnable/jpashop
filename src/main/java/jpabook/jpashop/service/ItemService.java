@@ -1,5 +1,6 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,14 @@ public class ItemService {
     @Transactional //(readOnly = false)
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    // 변경 감지 기능 사용 예시
+    @Transactional
+    public Item updateItem(Long itemId, Book bookItem) {
+        Item findItem = itemRepository.findOne(itemId); // 영속 상태
+        findItem.setPrice(bookItem.getPrice()); // 이렇게 데이터를 바꿔주면 자동으로 update된다.
+        return findItem;
     }
 
     public List<Item> findItems() {
